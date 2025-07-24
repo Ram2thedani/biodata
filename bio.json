@@ -1,0 +1,24 @@
+[
+    {
+    "nama" : "Muhamad Ramdani",
+    "tempat_lahir" : "Bandung",
+    "tanggal_lahir" : "2000-12-10",
+    "alamat" : {
+        "jalan" : "Kp. Sekebungur RT 03 RW 03",
+        "desa" : "Pameuntasan",
+        "kecamatan" : "Kutawaringin"
+    },
+    "hobi" : [
+        "Gaming",
+        "Musik"
+
+    ],
+    "kontak" : {
+        "email" : "ram2thedani@gmail.com",
+        "whatsapp" : "0895364488863",
+        "github" : "ram2thedani",
+        "instagram" : "ram2thedani"
+    }
+}
+
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Bulbasaur",
+    "region": "Kanto",
+    "type": ["Grass", "Poison"],
+    "trainer": {
+      "name": "Ash",
+      "level": 12
+    },
+    "moves": ["Tackle", "Growl", "Vine Whip"]
+  },
+  {
+    "name": "Charmander",
+    "region": "Kanto",
+    "type": ["Fire"],
+    "trainer": {
+      "name": "Red",
+      "level": 14
+    },
+    "moves": ["Scratch", "Ember", "Smokescreen"]
+  }
+]

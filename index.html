@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>student Viewer</title>
+</head>
+<body>
+  <h1>student Viewer</h1>
+  <div id="students"></div>
+
+  <script>
+   fetch('https://reqres.in/api/users')
+  .then(response => response.json())
+  .then(result => {
+    console.log(result);
+    const container = document.getElementById('students');
+    result.data.forEach(student => {
+      const card = document.createElement('div');
+      card.innerHTML = `
+        <h2>${student.first_name}</h2>
+        <hr>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(error => {
+    document.getElementById('students').innerHTML = `<p>Error loading data: ${error.message}</p>`;
+  });
+
+
+  </script>
+</body>
+</html>

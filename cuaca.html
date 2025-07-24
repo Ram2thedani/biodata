@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuaca BMKG</title>
+</head>
+<body>
+  <h1>Prakiraan Cuaca BMKG</h1>
+
+  <label for="wilayah">Pilih Wilayah:</label>
+  <select id="wilayah">
+    <option value="">-- Pilih Wilayah --</option>
+    <option value="32.04.09.2002">Margahayu Selatan (Bandung)</option>
+    <option value="31.71.01.1001">Kebayoran Baru (Jakarta Selatan)</option>
+    <!-- Tambah kode wilayah adm4 lainnya sesuai kebutuhan -->
+  </select>
+
+  <div id="hasil" style="margin-top:20px;"></div>
+
+  <script>
+    const select = document.getElementById("wilayah");
+    const hasil = document.getElementById("hasil");
+
+    select.addEventListener("change", async () => {
+      const kode = select.value;
+      hasil.innerHTML = "Mengambil data...";
+
+      if (!kode) {
+        hasil.innerHTML = "";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kode}`);
+        const json = await res.json();
+
+        const cuaca = json.data?.[0]?.cuaca || [];
+        if (cuaca.length === 0) {
+          hasil.innerHTML = "Data cuaca tidak tersedia.";
+          return;
+        }
+
+        let output = `<h3>${json.lokasi.kecamatan}, ${json.lokasi.kotkab}</h3><table border="1" cellpadding="5"><tr>
+          <th>Waktu</th><th>Cuaca</th><th>Suhu (°C)</th><th>Kelembapan (%)</th><th>Angin</th><th>Icon</th>
+        </tr>`;
+
+        // Flatten array 2 dimensi
+        cuaca.flat().forEach(item => {
+          output += `<tr>
+            <td>${item.local_datetime}</td>
+            <td>${item.weather_desc}</td>
+            <td>${item.t}</td>
+            <td>${item.hu}</td>
+            <td>${item.ws} km/j dari ${item.wd}</td>
+            <td><img src="${item.image}" alt="${item.weather_desc}" height="30"></td>
+          </tr>`;
+        });
+
+        output += "</table>";
+        hasil.innerHTML = output;
+
+      } catch (err) {
+        console.error(err);
+        hasil.innerHTML = "Gagal memuat data.";
+      }
+    });
+  </script>
+</body>
+</html>
